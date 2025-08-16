@@ -4,11 +4,13 @@ import * as React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { Search, ShoppingBag, User, Heart, Menu, X, Sun, Moon } from "lucide-react";
+import { Search, User, Heart, Menu, X, Sun, Moon } from "lucide-react";
+import { CartButton } from "@/components/cart/cart-button";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { cn } from "@/lib/utils";
 import { LiquidGlassCard } from "@/components/kokonutui/liquid-glass-card";
+import { AuthProvider } from "@/components/auth/auth-provider";
 
 /**
  * Navbar component theo phong cách KokonutUI
@@ -23,7 +25,6 @@ export function Navbar() {
   const [isSearchOpen, setIsSearchOpen] = React.useState(false);
   const [isScrolled, setIsScrolled] = React.useState(false);
   const [isDarkMode, setIsDarkMode] = React.useState(false);
-  const [cartCount, setCartCount] = React.useState(2); // Demo giả lập số sản phẩm trong giỏ
   
   // Xử lý sự kiện cuộn trang để thay đổi style của navbar
   React.useEffect(() => {
@@ -158,23 +159,12 @@ export function Navbar() {
           </Button>
           
           {/* Giỏ hàng */}
-          <Link href="/cart">
-            <Button variant="ghost" size="icon" className="relative">
-              <ShoppingBag className="h-5 w-5" />
-              {cartCount > 0 && (
-                <span className="absolute -top-1 -right-1 h-4 w-4 text-[10px] font-medium flex items-center justify-center rounded-full bg-primary text-primary-foreground">
-                  {cartCount}
-                </span>
-              )}
-            </Button>
-          </Link>
+          <CartButton />
           
           {/* Tài khoản */}
-          <Link href="/account" className="hidden md:block">
-            <Button variant="ghost" size="icon">
-              <User className="h-5 w-5" />
-            </Button>
-          </Link>
+          <div className="hidden md:block">
+            <AuthProvider />
+          </div>
           
           {/* Dark/Light mode toggle */}
           <Button 
@@ -270,10 +260,10 @@ export function Navbar() {
                 
                 {/* User actions mobile */}
                 <div className="mt-auto pt-6 border-t space-y-3">
-                  <Link href="/account" onClick={() => setIsOpen(false)}>
+                  <Link href="/auth/login" onClick={() => setIsOpen(false)}>
                     <Button variant="outline" className="w-full justify-start gap-2">
                       <User className="h-4 w-4" />
-                      Tài khoản
+                      Tài khoản / Đăng nhập
                     </Button>
                   </Link>
                   <Link href="/wishlist" onClick={() => setIsOpen(false)}>
@@ -282,17 +272,18 @@ export function Navbar() {
                       Yêu thích
                     </Button>
                   </Link>
-                  <Link href="/cart" onClick={() => setIsOpen(false)}>
-                    <Button className="w-full justify-start gap-2">
-                      <ShoppingBag className="h-4 w-4" />
-                      Giỏ hàng
-                      {cartCount > 0 && (
-                        <span className="ml-auto h-5 min-w-5 px-1 text-xs font-medium flex items-center justify-center rounded-full bg-primary-foreground text-primary">
-                          {cartCount}
-                        </span>
-                      )}
-                    </Button>
-                  </Link>
+                  <Button 
+                    className="w-full justify-start gap-2"
+                    onClick={() => {
+                      setIsOpen(false);
+                      // CartButton sẽ mở giỏ hàng khi được nhấp vào
+                      const { openCart } = require("@/context/cart-context").useCart();
+                      openCart();
+                    }}
+                  >
+                    <CartButton />
+                    <span className="ml-2">Giỏ hàng</span>
+                  </Button>
                 </div>
               </div>
             </SheetContent>

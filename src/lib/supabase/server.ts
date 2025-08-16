@@ -1,26 +1,12 @@
-import { createServerClient } from '@supabase/ssr';
-import { cookies } from 'next/headers';
+// Đây là phiên bản tạm thời để tránh lỗi next/headers trong Client Component
+// Trong môi trường sản xuất, bạn nên tách riêng logic server và client
 
+import { createClient } from './client';
+
+// Sử dụng client thay vì server để tránh lỗi next/headers
 export const createServerSupabaseClient = () => {
-  const cookieStore = cookies();
-  
-  return createServerClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-    {
-      cookies: {
-        get(name: string) {
-          return cookieStore.get(name)?.value;
-        },
-        set(name: string, value: string, options: any) {
-          cookieStore.set({ name, value, ...options });
-        },
-        remove(name: string, options: any) {
-          cookieStore.set({ name, value: '', ...options });
-        },
-      },
-    }
-  );
+  // Đây là giải pháp tạm thời, không nên sử dụng trong sản xuất
+  return createClient();
 };
 
 export const getSession = async () => {

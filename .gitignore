@@ -82,13 +82,3 @@ out
 
 # Supabase local development
 .supabase
-
-# BMAD Core
-.bmad-core
-
-# Gemini
-.gemini
-
-# Windsurf
-.windsurf
-

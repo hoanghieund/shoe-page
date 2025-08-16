@@ -41,37 +41,38 @@ export function LiquidGlassCard({
       high: { base: 0.25, accent: 0.4, highlight: 0.15 },
     };
     
-    // Màu sắc dựa trên variant
+    // Màu sắc dựa trên front-end-spec.md
     const variantColors = {
       primary: {
-        primary: "120, 119, 198", // tím nhạt
-        secondary: "100, 100, 220", // tím đậm hơn
-        accent: "130, 80, 230", // tím sáng
+        // Màu chính là đen theo spec
+        primary: "0, 0, 0", // primary: '#000000'
+        secondary: "33, 33, 33", // gray.800: '#212121'
+        accent: "255, 77, 79", // accent: '#FF4D4F'
       },
       secondary: {
-        primary: "100, 100, 100", // xám
-        secondary: "80, 80, 80", // xám đậm
-        accent: "120, 120, 120", // xám sáng
+        primary: "255, 255, 255", // secondary: '#FFFFFF'
+        secondary: "245, 245, 245", // gray.100: '#F5F5F5'
+        accent: "224, 224, 224", // gray.300: '#E0E0E0'
       },
       success: {
-        primary: "80, 200, 120", // xanh lá
-        secondary: "60, 180, 100", // xanh lá đậm
-        accent: "100, 220, 140", // xanh lá sáng
+        primary: "82, 196, 26", // success: '#52C41A'
+        secondary: "62, 176, 16", // success darker
+        accent: "102, 216, 46", // success lighter
       },
       danger: {
-        primary: "220, 70, 70", // đỏ
-        secondary: "200, 50, 50", // đỏ đậm
-        accent: "240, 90, 90", // đỏ sáng
+        primary: "255, 77, 79", // error: '#FF4D4F'
+        secondary: "235, 57, 59", // error darker
+        accent: "255, 97, 99", // error lighter
       },
       warning: {
-        primary: "230, 180, 60", // vàng
-        secondary: "210, 160, 40", // vàng đậm
-        accent: "250, 200, 80", // vàng sáng
+        primary: "250, 173, 20", // warning: '#FAAD14'
+        secondary: "230, 153, 0", // warning darker
+        accent: "255, 193, 40", // warning lighter
       },
       info: {
-        primary: "60, 170, 220", // xanh dương
-        secondary: "40, 150, 200", // xanh dương đậm
-        accent: "80, 190, 240", // xanh dương sáng
+        primary: "60, 170, 220", // info blue
+        secondary: "40, 150, 200", // info darker
+        accent: "80, 190, 240", // info lighter
       },
       custom: {
         primary: customColors?.primary || "255, 255, 255",
@@ -97,11 +98,11 @@ export function LiquidGlassCard({
         "relative overflow-hidden rounded-2xl border p-6",
         "backdrop-blur-xl backdrop-saturate-150",
         "shadow-[0_8px_16px_rgb(0_0_0/0.08)]",
-        variant === "primary" && "border-purple-200/20 dark:border-purple-300/10",
+        variant === "primary" && "border-black/20 dark:border-black/10",
         variant === "secondary" && "border-gray-200/20 dark:border-gray-300/10",
-        variant === "success" && "border-green-200/20 dark:border-green-300/10",
-        variant === "danger" && "border-red-200/20 dark:border-red-300/10",
-        variant === "warning" && "border-yellow-200/20 dark:border-yellow-300/10",
+        variant === "success" && "border-[#52C41A]/20 dark:border-[#52C41A]/10",
+        variant === "danger" && "border-[#FF4D4F]/20 dark:border-[#FF4D4F]/10",
+        variant === "warning" && "border-[#FAAD14]/20 dark:border-[#FAAD14]/10",
         variant === "info" && "border-blue-200/20 dark:border-blue-300/10",
         variant === "custom" && "border-white/20 dark:border-white/10",
         hoverEffect && "transition-all duration-300 hover:-translate-y-1 hover:shadow-lg",

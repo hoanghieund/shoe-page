@@ -4,6 +4,8 @@ import { Navbar } from "@/components/kokonutui/navbar";
 import { QueryProvider } from "@/components/kokonutui/query-provider";
 import { ThemeProvider } from "@/components/kokonutui/theme-provider";
 import { Toaster } from "@/components/ui/toaster";
+import { CartProvider } from "@/context/cart-context";
+import { CartSheet } from "@/components/cart/cart-sheet";
 import { cn } from "@/lib/utils";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
@@ -34,19 +36,22 @@ export default function RootLayout({
       >
         <QueryProvider>
           <AuthProvider>
-            <ThemeProvider
-              attribute="class"
-              defaultTheme="light"
-              enableSystem
-              disableTransitionOnChange
-            >
-              <div className="flex min-h-screen flex-col">
-                <Navbar />
-                <main className="flex-1">{children}</main>
-                <Footer />
-              </div>
-              <Toaster />
-            </ThemeProvider>
+            <CartProvider>
+              <ThemeProvider
+                attribute="class"
+                defaultTheme="light"
+                enableSystem
+                disableTransitionOnChange
+              >
+                <div className="flex min-h-screen flex-col">
+                  <Navbar />
+                  <main className="flex-1">{children}</main>
+                  <Footer />
+                </div>
+                <Toaster />
+                <CartSheet />
+              </ThemeProvider>
+            </CartProvider>
           </AuthProvider>
         </QueryProvider>
       </body>
