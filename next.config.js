@@ -3,9 +3,7 @@ const nextConfig = {
   images: {
     domains: ['images.unsplash.com', 'lh3.googleusercontent.com'],
   },
-  experimental: {
-    serverActions: true,
-  },
+  // experimental.serverActions không cần nữa kể từ Next 14+, xoá để tránh cảnh báo
   eslint: {
     ignoreDuringBuilds: true,
   },

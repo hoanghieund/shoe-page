@@ -397,7 +397,7 @@ SELECT
   c.slug as category_slug,
   (SELECT json_agg(DISTINCT ps.size) FROM public.product_sizes ps WHERE ps.product_id = p.id) as available_sizes,
   (SELECT json_agg(pi.url ORDER BY pi.position) FROM public.product_images pi WHERE pi.product_id = p.id) as image_urls,
-  (SELECT MIN(ps.stock > 0)::boolean FROM public.product_sizes ps WHERE ps.product_id = p.id) as in_stock
+  (SELECT COALESCE(bool_or(ps.stock > 0), false) FROM public.product_sizes ps WHERE ps.product_id = p.id) as in_stock
 FROM 
   public.products p
   LEFT JOIN public.categories c ON p.category_id = c.id;
